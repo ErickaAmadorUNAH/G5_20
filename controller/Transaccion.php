@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
     switch($_GET["opc"]){
 
-        case "getTransasaciones":
+        case "GetTransasaciones":
             $datos=$transaccion->get_transacciones();
             echo json_encode($datos);
             break;
         
-        case "getTransaccion": 
+        case "GetTransaccion": 
             $datos=$transaccion->get_transaccion($body["CodigoTransaccion"]); 
             echo json_encode($datos);
             break;
