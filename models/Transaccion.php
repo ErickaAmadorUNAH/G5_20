@@ -30,14 +30,22 @@ public function insert_transaccion($CodigoTransaccion,$TipoTransaccion,$CodigoCl
     $SQL ->bindValue(2,$TipoTransaccion)
     $SQL ->bindValue(3,$CodigoCliente)
     $SQL ->bindValue(4,$FechaTransaccion)
-    $SQL ->bindValue(5,$CodigoTransaccion)
-    $SQL ->bindValue(6,$MontoTransaccion)
+    $SQL ->bindValue(5,$MontoTransaccion)
+    $SQL ->bindValue(6,$Sucursal)
     $SQL ->bindValue(7,$NumeroCuenta)
     $sql-> execute();
     return $resultado=$sql->fetchAll(PDO::FETCH ASSOC);
    }
 
-
+   public function get_eliminar_transaccion($CodigoTransaccion){ 
+    $conectar= parent::conexion();
+    parent::set_names();
+    $sql="DELETE FROM Transaccion WHERE $CodigoTransaccion= ?";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $CodigoTransaccion);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
    
 
