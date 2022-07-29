@@ -36,7 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
         case "EliminarCliente":
             $datos=$clientes->get_eliminar_cliente($body["NumeroCliente"]);
-            echo json_encode("Cliente Eliminado Exitosamente");
+            echo json_encode("Cliente ELIMINADO Con Exito");
             break; 
+
+        case "UpdateCliente":
+            $datos=$clientes->update_cliente($body["NumeroCliente"],$body["Nombres"],$body["Apellidos"],$body["RTN"],$body["FechaAfiliacion"],$body["SaldoActual"],$body["NumeroCuenta"]);
+            echo json_encode("Cliente Se ACTUALIZO Con Exito");
+            break;
     }
 ?>
