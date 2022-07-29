@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             break;
         
         case "GetCliente": 
-            
+            $datos=$clientes->get_cliente($body["NumeroCliente"]); 
+            echo json_encode($datos);
             break;
 
         case "InsertCliente":

@@ -11,14 +11,14 @@
             return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function get_cliente($NumeroCliente){
+        public function get_cliente($NumeroCliente){ 
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT * FROM cliente WHERE NumeroCliente = ?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $NumeroCliente);
             $sql->execute();
-            return $resultado=$sql->fetcAll(PDO::FETCH_ASSOC);
+            return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function insert_cliente($NumeroCliente, $Nombres, $Apellidos, $RTN, $FechaAfiliacion, $SaldoActual, $NumeroCuenta){
@@ -26,7 +26,7 @@
             parent::set_names();
             $sql="INSERT INTO cliente(NumeroCliente, Nombres, Apellidos, RTN, FechaAfiliacion, SaldoActual, NumeroCuenta)
             VALUES (?,?,?,?,?,?,?);";
-            $sql=$conectar->prepare($sql);
+            $sql=$conectar->prepare($sql); 
             $sql->bindValue(1, $NumeroCliente);
             $sql->bindValue(2, $Nombres);
             $sql->bindValue(3, $Apellidos);
