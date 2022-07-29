@@ -52,7 +52,7 @@
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE cliente SET  Nombres = ?, Apellidos = ?, RTN = ?, FechaAfiliacion = ?, SaldoActual = ?, NumeroCuenta = ? 
-                WHERE NumeroCliente = ?;";
+                 WHERE NumeroCliente = ?;";
             $sql=$conectar->prepare($sql); 
             $sql->bindValue(1, $Nombres);
             $sql->bindValue(2, $Apellidos);

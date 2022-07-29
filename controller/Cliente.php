@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
         case "EliminarCliente":
             $datos=$clientes->get_eliminar_cliente($body["NumeroCliente"]);
-            echo json_encode("Cliente Eliminado Con Exito");
+            echo json_encode("Cliente ELIMINADO Con Exito");
             break; 
 
         case "UpdateCliente":
