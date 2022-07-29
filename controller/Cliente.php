@@ -32,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         case "InsertCliente":
             $datos=$clientes->insert_cliente($body["NumeroCliente"],$body["Nombres"],$body["Apellidos"],$body["RTN"],$body["FechaAfiliacion"],$body["SaldoActual"],$body["NumeroCuenta"]);
             echo json_encode("Cliente Agregado Exitosamente");
-            break;
+            break; 
+
+        case "EliminarCliente":
+            $datos=$clientes->get_eliminar_cliente($body["NumeroCliente"]);
+            echo json_encode("Cliente Eliminado Exitosamente");
+            break; 
     }
 ?>

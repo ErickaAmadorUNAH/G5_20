@@ -37,5 +37,15 @@
             $sql->execute();
             return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function get_eliminar_cliente($NumeroCliente){ 
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="DELETE FROM cliente WHERE NumeroCliente = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $NumeroCliente);
+            $sql->execute();
+            return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 ?>
