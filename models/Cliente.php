@@ -47,5 +47,22 @@
             $sql->execute();
             return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function update_cliente($NumeroCliente, $Nombres, $Apellidos, $RTN, $FechaAfiliacion, $SaldoActual, $NumeroCuenta){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE cliente SET  Nombres = ?, Apellidos = ?, RTN = ?, FechaAfiliacion = ?, SaldoActual = ?, NumeroCuenta = ? 
+                WHERE NumeroCliente = ?;";
+            $sql=$conectar->prepare($sql); 
+            $sql->bindValue(1, $Nombres);
+            $sql->bindValue(2, $Apellidos);
+            $sql->bindValue(3, $RTN);
+            $sql->bindValue(4, $FechaAfiliacion);
+            $sql->bindValue(5, $SaldoActual);
+            $sql->bindValue(6, $NumeroCuenta);
+            $sql->bindValue(7, $NumeroCliente);
+            $sql->execute();
+            return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 ?>
