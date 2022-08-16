@@ -54,13 +54,13 @@
             $sql="UPDATE Transaccion SET  TipoTransaccion = ?, CodigoCliente = ?,FechaTransaccion=?, MontoTransaccion = ?, Sucursal = ?, NumeroCuenta = ? 
                  WHERE CodigoTransaccion = ?;";
            $sql=$conectar->prepare($sql); 
-           $sql->bindValue(2, $TipoTransaccion);
-           $sql->bindValue(3, $CodigoCliente);
-           $sql->bindValue(4, $FechaTransaccion);
-           $sql->bindValue(5, $MontoTransaccion);
-           $sql->bindValue(6, $Sucursal);
-           $sql->bindValue(7, $NumeroCuenta);
-           $sql->bindValue(1, $CodigoTransaccion);
+           $sql->bindValue(1, $TipoTransaccion);
+           $sql->bindValue(2, $CodigoCliente);
+           $sql->bindValue(3, $FechaTransaccion);
+           $sql->bindValue(4, $MontoTransaccion);
+           $sql->bindValue(5, $Sucursal);
+           $sql->bindValue(6, $NumeroCuenta);
+           $sql->bindValue(7, $CodigoTransaccion);
            $sql->execute();
             return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         }
