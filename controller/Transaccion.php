@@ -1,5 +1,5 @@
 <?php
-class transaccion extends conectar{
+class Transaccion extends conectar{
     public function get_transaccions(){
         $conectar= parent::conexion();
         parent::set_names();
