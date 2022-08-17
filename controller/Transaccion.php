@@ -1,46 +1,66 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-    header('Access-Control-Allow-Headers: token, Content-Type');
-    header('Access-Control-Max-Age: 1728000');
-    header('Content-Length: 0');
-    header('Content-Type: text/plain');
-    die();
-}
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
-
-    require_once("../config/conexion.php");
-    require_once("../models/transaccion.php");
-    $transaccion = new transaccion();
-
-    $body = json_decode(file_get_contents("php://input"), true);
-
-    switch($_GET["opc"]){
-
-        case "GetTransasaciones":
-            $datos=$transaccion->get_transacciones();
-            echo json_encode($datos);
-            break;
-        
-        case "GetTransaccion": 
-            $datos=$transaccion->get_transaccion($body["CodigoTransaccion"]); 
-            echo json_encode($datos);
-            break;
-
-        case "insertransaccion":
-            $datos=$transaccion->insert_transaccion($body["CodigoTransaccion"],$body["TipoTransaccion"],$body["CodigoCliente"],$body["FechaTransaccion"],$body["MontoTransaccion"],$body["Sucursal"],$body["NumeroCuenta"]);
-            echo json_encode("transaccion Agregada Exitosamente");
-            break; 
-
-        case "Eliminartransaccion":
-            $datos=$transaccion->get_eliminar_transaccion($body["CodigoTransaccion"]);
-            echo json_encode("Transaccion Eliminado Exitosamente");
-            break; 
-        case "updateTransaccion":
-                $datos=$transaccion->update_Transaccion($body["CodigoTransaccion"],$body["TipoTransaccion"],$body["CodigoCliente"],$body["FechaTransaccion"],$body["MontoTransaccion"],$body["Sucursal"],$body["NumeroCuenta"]);
-                echo json_encode("Transaccion Se ACTUALIZO Con Exito");
-                break;
+class transaccion extends conectar{
+    public function get_transaccions(){
+        $conectar= parent::conexion();
+        parent::set_names();
+        $sql="SELECT * FROM transaccion ";
+        $sql=$conectar->prepare($sql);
+        $sql->execute();
+        return $resultado=$sql ->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function get_transaccion($CodigoTransaccion){
+        $conectar= parent::conexion();
+        parent:: set_names();
+        $sql="SELECT * FROM transaccion WHERE  CodigoTransaccion=?";
+        $sql=$conectar->prepare($sql);
+        $sql ->bindvalue(1, $CodigoTransaccion);
+        $sql ->execute();
+        return $resultado=$sql ->fetchAll(PDO:: FETCH_ASSOC);
+    }
+
+    public function insert_transaccion($CodigoTransaccion, $TipoTransaccion, $CodigoCliente, $FechaTransaccion, $MontoTransaccion, $Sucursal, $NumeroCuenta){
+        $conectar= parent::conexion();
+        parent::set_names();
+        $sql="INSERT INTO Transaccion(CodigoTransaccion,TipoTransaccion,CodigoCliente,FechaTransaccion,MontoTransaccion,Sucursal,NumeroCuenta)
+        VALUES (?,?,?,?,?,?,?);";
+        $sql=$conectar ->prepare($sql);
+        $sql ->bindvalue(1, $CodigoTransaccion); 
+        $sql ->bindvalue(2, $TipoTransaccion); 
+        $sql ->bindvalue(3, $CodigoCliente); 
+        $sql ->bindvalue(4, $FechaTransaccion); 
+        $sql ->bindvalue(5, $MontoTransaccion); 
+        $sql ->bindvalue(6, $Sucursal); 
+        $sql ->bindvalue(7, $NumeroCuenta);
+        $sql ->execute();
+        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function update_transaccion($CodigoTransaccion, $TipoTransaccion, $CodigoCliente, $FechaTransaccion, $MontoTransaccion, $Sucursal, $NumeroCuenta){
+        $conectar= parent::conexion();
+        parent::set_names();
+        $sql="UPDATE Transaccion SET TipoTransaccion=? ,CodigoCliente=? ,FechaTransaccion=? ,MontoTransaccion=? ,Sucursal=?, NumeroCuenta=? WHERE CodigoTransaccion=?"; 
+        $sql=$conectar ->prepare($sql);
+        $sql ->bindvalue(1, $TipoTransaccion); 
+        $sql ->bindvalue(2, $CodigoCliente); 
+        $sql ->bindvalue(3, $FechaTransaccion); 
+        $sql ->bindvalue(4, $MontoTransaccion); 
+        $sql ->bindvalue(5, $Sucursal); 
+        $sql ->bindvalue(6, $NumeroCuenta);
+        $sql ->bindvalue(7, $CodigoTransaccion);
+        $sql ->execute();
+        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);   
+    }
+
+    public function delete_transaccion($CodigoTransaccion){
+        $conectar= parent::conexion();
+        parent::set_names();
+        $sql="DELETE FROM Transaccion WHERE CodigoTransaccion=?";
+        $sql=$conectar ->prepare($sql);
+        $sql->bindValue(1, $CodigoTransaccion);
+        $sql->execute();
+        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+}
 ?>
