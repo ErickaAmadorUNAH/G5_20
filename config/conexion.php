@@ -1,7 +1,7 @@
 <?php
   class conectar{
     protected $dbh;
-     protected function Conexion(){
+     protected function conexion(){
         try{
             $conectar = $this ->dbh = new PDO("mysql:host=20.216.41.245;dbname=g5_20","G5_20","cyMe8YgN");
             return $conectar;
